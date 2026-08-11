@@ -39,7 +39,7 @@ Before writing any Python code, get a feel for the API by trying some URLs in yo
      - `id`, `title`, `authors`, `languages`, `bookshelves`, `subjects`, `download_count`, `formats`, etc. [gutendex](https://gutendex.com/)
    - Notice that `authors` is a list of objects with `name`, `birth_year`, and `death_year`. [gutendex](https://gutendex.com/)
 
-3. Write down (on paper or in a text file) answers to these questions:
+3. Write down (on paper or in a text file)  answers to these questions:
    - What fields exist for a single book?
    - How do you know where the “next page” of results is?
    - How would you get only English books that mention “children” in their topics?
