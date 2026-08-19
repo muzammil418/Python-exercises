@@ -144,7 +144,7 @@ def main():
     next_url = data["next"]
     previous_url = data["previous"]
 
-    
+
 
     while True:
         print("1. Show next page")
