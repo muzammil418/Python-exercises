@@ -7,7 +7,21 @@ def fetch_books_page(url):
         print(f"error code {response.status_code}")
         return
 
-    return response.json()
+    data = response.json()
+
+    if "results" in data:
+        next_url = data["next"]
+        previous_url = data["previous"]
+        books = data["results"]
+
+        return next_url, previous_url, books
+
+    return data
+
+def fetch_and_print_books(url):
+    next_url, previous_url, books = fetch_books_page(url)
+    print_books(books)
+    return next_url, previous_url
 
 
 def build_url(base, params):
@@ -121,11 +135,7 @@ def print_books_detailed_info(book):
     word_list = list(word_counts.items())
 
 
-    for i in range(len(word_list)):
-        for j in range(i + 1, len(word_list)):
-            if word_list[i][1] < word_list[j][1]:
-                word_list[i], word_list[j] = word_list[j], word_list[i]
-
+    word_list.sort(key=lambda x: x[1], reverse=True)
 
     for word, count in word_list[:20]:
         print(word, count)
@@ -138,12 +148,7 @@ def main():
     book_id = None
     params["sort"] = "popular"
     base = "https://gutendex.com/books"
-    data = fetch_books_page("https://gutendex.com/books")
-
-    books = data["results"]
-    next_url = data["next"]
-    previous_url = data["previous"]
-
+    next_url, previous_url, books = fetch_books_page(base)
 
 
     while True:
@@ -162,29 +167,17 @@ def main():
         choice = int(input("enter your choice: "))
         if choice == 1:
             if next_url is not None:
-                data = fetch_books_page(next_url)
-                next_url = data["next"]
-                previous_url = data["previous"]
-                books = data["results"]
-                print_books(books)
+                next_url, previous_url = fetch_and_print_books(next_url)
 
         elif choice == 2:
             if previous_url is not None:
-                data = fetch_books_page(previous_url)
-                next_url = data["next"]
-                previous_url = data["previous"]
-                books = data["results"]
-                print_books(books)
+               next_url, previous_url = fetch_and_print_books(previous_url)
 
         elif choice == 3:
             key_word = input("enter a key word: ")
             key_word = key_word.replace(" ",  "%20")
             url = "https://gutendex.com/books?search=" + key_word
-            data = fetch_books_page(url)
-            books = data["results"]
-            next_url = data["next"]
-            previous_url = data["previous"]
-            print_books(books)
+            next_url, previous_url = fetch_and_print_books(url)
 
         elif choice == 4:
             language = input("which launguage do you want to chosse en or fr: ")
@@ -192,11 +185,7 @@ def main():
             params["languages"] = language
 
             url = build_url(base, params)
-            data = fetch_books_page(url)
-            books = data["results"]
-            next_url = data["next"]
-            previous_url = data["previous"]
-            print_books(books)
+            next_url, previous_url = fetch_and_print_books(url)
 
         elif choice == 5:
             topic = input("enter the topic you want to search: ")
@@ -204,11 +193,7 @@ def main():
             params["topic"] = topic
 
             url = build_url(base, params)
-            data = fetch_books_page(url)
-            books = data["results"]
-            next_url = data["next"]
-            previous_url = data["previous"]
-            print_books(books)
+            next_url, previous_url = fetch_and_print_books(url)
 
         elif choice == 6:
             sort = input("enter sort order (ascending/descending/popular): ")
@@ -216,11 +201,7 @@ def main():
             params["sort"] = sort
 
             url = build_url(base, params)
-            data = fetch_books_page(url)
-            books = data["results"]
-            next_url = data["next"]
-            previous_url = data["previous"]
-            print_books(books)
+            next_url, previous_url = fetch_and_print_books(url)
 
 
         elif choice == 7:
@@ -230,11 +211,7 @@ def main():
             print("filters have been reset")
 
             url = build_url(base, params)
-            data = fetch_books_page(url)
-            books = data["results"]
-            next_url = data["next"]
-            previous_url = data["previous"]
-            print_books(books)
+            next_url, previous_url = fetch_and_print_books(url)
 
         elif choice == 8:
             book_id = int(input("enter a book id: "))
@@ -244,8 +221,7 @@ def main():
 
             else:
                 url = "https://gutendex.com/books/" + str(book_id)
-                data = fetch_books_page(url)
-                book = data
+                book = fetch_books_page(url)
 
 
             print_books_detailed_info(book)
