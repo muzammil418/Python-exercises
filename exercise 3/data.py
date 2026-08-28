@@ -1,5 +1,6 @@
 import random
 
+# solution to 0a
 customers = []
 orders = [
         {"order_id": 5001, "customer_id": 1, "item": "Keyboard", "amount": 49.99},
@@ -45,10 +46,47 @@ def make_orders(m, num_customers):
 make_customers(20)
 make_orders(15, 20)
 
-
+# solution to 0b
 customer_ids = [customer["id"] for customer in customers]
 orphans_count = [order for order in orders if order["customer_id"] not in customer_ids]
 
-
-
 print(len(orphans_count))
+
+
+# solution to 1a
+
+names = [customer["name"] for customer in customers]
+
+# solution to 1b
+
+latest = max(customers, key=lambda customer: customer["signup_year"])
+earliest = min(customers, key=lambda customer: customer["signup_year"])
+
+# solution to 1c
+
+last_five = customers[-5:]
+
+# solution to 1d
+
+laptop_orders = len([order for order in orders if order["item"] == "Laptop"])
+
+# solution to 1e
+
+total_amount = sum([order["amount"] for order in orders])
+
+# solution to 1f
+
+highest_order = max(orders, key=lambda order: order["amount"])
+
+# solution to 1g
+
+cities = set([customer["city"] for customer in customers])
+
+# solution to 1h
+
+customer_7 = next((customer for customer in customers if customer["id"] == 7), None)
+
+
+
+
+
