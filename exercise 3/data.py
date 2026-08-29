@@ -1,10 +1,9 @@
 import random
+import time
 
 # solution to 0a
 customers = []
-orders = [
-        {"order_id": 5001, "customer_id": 1, "item": "Keyboard", "amount": 49.99},
-    ]
+orders = []
 
 
 def make_customers(n):
@@ -43,8 +42,8 @@ def make_orders(m, num_customers):
         orders.append(order)
 
 
-make_customers(20)
-make_orders(15, 20)
+make_customers(2000)
+make_orders(10000, 2000)
 
 # solution to 0b
 customer_ids = [customer["id"] for customer in customers]
@@ -84,9 +83,41 @@ cities = set([customer["city"] for customer in customers])
 
 # solution to 1h
 
+
 customer_7 = next((customer for customer in customers if customer["id"] == 7), None)
 
 
+# solution to 2a
+
+def find_customer_for_order(order, customers):
+    for customer in customers:
+        if order["customer_id"] == customer["id"]:
+            return customer
+
+    return None
+
+
+# solution to 2b
+
+def join_all(orders, customers):
+    joined_results = []
+
+    for order in orders:
+        customer = find_customer_for_order(order, customers)
+        joined_results.append((order, customer))
+
+    return joined_results
+
+#solution to 2c
+start = time.perf_counter()
+
+result = join_all(orders, customers)
+
+end = time.perf_counter()
+elapsed = end - start
+
+print(f"{elapsed:.4f} seconds")
+print(elapsed)
 
 
 

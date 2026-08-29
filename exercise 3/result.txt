@@ -1,0 +1,6 @@
+Python Challenge 03 - Part 2c Timing Results
+
+Dataset Size        Customers    Orders    Join Time (seconds)
+--------------------------------------------------------------
+Small Dataset       20           100        0.0002 seconds
+Larger Dataset      2000         10000      2.0317 seconds
