@@ -42,8 +42,8 @@ def make_orders(m, num_customers):
         orders.append(order)
 
 
-make_customers(2000)
-make_orders(10000, 2000)
+make_customers(50000)
+make_orders(250000, 50000)
 
 # solution to 0b
 customer_ids = [customer["id"] for customer in customers]

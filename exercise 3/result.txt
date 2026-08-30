@@ -4,3 +4,16 @@ Dataset Size        Customers    Orders    Join Time (seconds)
 --------------------------------------------------------------
 Small Dataset       20           100        0.0002 seconds
 Larger Dataset      2000         10000      2.0317 seconds
+
+
+Python Challenge 03 - Part 3a Timing Results
+
+Customers    Orders      Run 1 (s)    Run 2 (s)    Run 3 (s)
+-------------------------------------------------------------
+100          500         0.0039       0.0038        0.0022
+1,000        5,000       0.6998       0.3315        0.4219
+10,000       50,000      31.4470      30.6111       30.1704
+50,000       250,000     17.1553m     23.9212m     20.7397m
+
+m == minutes
+
