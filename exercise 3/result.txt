@@ -17,3 +17,19 @@ Customers    Orders      Run 1 (s)    Run 2 (s)    Run 3 (s)
 
 m == minutes
 
+Part 4b — Bubble Sort vs sorted()
+
+Input Type         Size    Bubble Sort (s)    sorted() (s)
+-----------------------------------------------------------
+Random             1000    0.2324               0.0006
+Already sorted     1000    0.1805               0.0008
+Reverse sorted     1000    0.2177               0.0005
+
+- Does `bubble_sort` behave the same way on all three kinds of input, or does something change?
+Ans: no the time changed for each input
+
+-Does `sorted()` care which kind of input it gets? Can you tell from the timings?
+Ans: not much the timings were very close for all three inputs
+
+- Before running each case, try predicting what will happen. How often were you right?
+Ans: I predicted that the sorted() function would be faster and that the already sorted input would be the fastest
