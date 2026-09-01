@@ -4,18 +4,26 @@ import time
 # solution to 0a
 customers = []
 orders = []
-
+used_ids = []
 
 def make_customers(n):
 
     for i in range(n):
+        customer_id = random.randint(1, n)
+
+        while customer_id in used_ids:
+            customer_id = random.randint(1, n)
+
+        used_ids.append(customer_id)
+
         customer = {
-            "id": i + 1,
-            "name": random.choice(["Alex Turner","Maya Patel","Liam Gallagher","Sophia Chen","Ethan Brooks","Olivia Vance","Lucas Reed","Emma Rodriguez","Benjamin Hayes","Chloe Dubois","Noah Sterling","Ava Tanaka","Jackson Cole",]),
-            "city": random.choice(["Tokyo","Paris","Cairo","Sydney","Toronto","Rio de Janeiro","Seoul","London","Buenos Aires","Nairobi",]),
+            "id": customer_id,
+            "name": random.choice(["Alex Turner", "Maya Patel", "Liam Gallagher", "Sophia Chen", "Ethan Brooks", "Olivia Vance", "Lucas Reed", "Emma Rodriguez", "Benjamin Hayes", "Chloe Dubois", "Noah Sterling", "Ava Tanaka", "Jackson Cole"]),
+            "city": random.choice(["Tokyo", "Paris", "Cairo", "Sydney", "Toronto", "Rio de Janeiro", "Seoul", "London", "Buenos Aires", "Nairobi"]),
             "signup_year": random.randint(2015, 2025)
         }
         customers.append(customer)
+       
 
 
 
@@ -42,8 +50,8 @@ def make_orders(m, num_customers):
         orders.append(order)
 
 
-make_customers(50000)
-make_orders(250000, 50000)
+make_customers(1000)
+make_orders(100, 1000)
 
 # solution to 0b
 customer_ids = [customer["id"] for customer in customers]
@@ -119,5 +127,91 @@ elapsed = end - start
 print(f"{elapsed:.4f} seconds")
 print(elapsed)
 
+#solution to 4a
+
+def bubble_sort(records, key):
+    for i in range(len(records)):
+        for j in range(len(records)-i-1):
+            if records[j][key] > records[j+1][key]:
+                records[j], records[j + 1] = records[j + 1], records[j]
+
+    return records
+
+#solution to 4b
+
+# Random customers
+
+#bubble_sort
+temp_1 = customers.copy()
+start = time.perf_counter()
+
+temp_1 = bubble_sort(temp_1, "id")
+
+end = time.perf_counter()
+elapsed = end - start
+
+print(f"{elapsed:.4f} seconds")
 
 
+
+#sorted function
+temp_2 = customers.copy()
+start = time.perf_counter()
+
+temp_2 = sorted(temp_2, key=lambda customer: customer["id"])
+
+end = time.perf_counter()
+elapsed = end - start
+
+print(f"{elapsed:.4f} seconds")
+
+
+# Already sorted customers
+
+#bubble_sort()
+start = time.perf_counter()
+
+bubble_sort(temp_1, "id")
+
+end = time.perf_counter()
+elapsed = end - start
+
+print(f"{elapsed:.4f} seconds")
+
+
+#sorted function
+start = time.perf_counter()
+
+sorted(temp_2, key=lambda customer: customer["id"])
+
+end = time.perf_counter()
+elapsed = end - start
+
+print(f"{elapsed:.4f} seconds")
+
+
+
+# Reverse sorted customers
+
+#bubble_sort()
+temp_1 = customers[::-1]
+start = time.perf_counter()
+
+bubble_sort(temp_1, "id")
+
+end = time.perf_counter()
+elapsed = end - start
+
+print(f"{elapsed:.4f} seconds")
+
+#sorted function()
+temp_2 = customers[::-1]
+
+start = time.perf_counter()
+
+sorted(temp_2, key=lambda customer: customer["id"])
+
+end = time.perf_counter()
+elapsed = end - start
+
+print(f"{elapsed:.4f} seconds")
