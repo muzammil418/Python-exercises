@@ -50,8 +50,8 @@ def make_orders(m, num_customers):
         orders.append(order)
 
 
-make_customers(1000)
-make_orders(100, 1000)
+make_customers(100)
+make_orders(500, 100)
 
 # solution to 0b
 customer_ids = [customer["id"] for customer in customers]
@@ -215,3 +215,55 @@ end = time.perf_counter()
 elapsed = end - start
 
 print(f"{elapsed:.4f} seconds")
+
+
+#solution to 4c
+
+def binary_search(sorted_records, key, target_value):
+    left = 0
+    right = len(sorted_records) - 1
+    
+
+
+    while left <= right:
+        middle = (left + right) // 2
+
+        if sorted_records[middle][key] < target_value:
+            left = middle + 1
+
+        elif sorted_records[middle][key] > target_value:
+            right = middle - 1
+
+        else:
+            return sorted_records[middle]
+
+    return None
+
+
+
+#solution to 4d
+
+def join_all_sorted(orders, customers):
+    sorted_customers = sorted(customers, key=lambda customer: customer["id"])
+
+    start = time.perf_counter()
+
+    for order in orders:
+        customer = binary_search(sorted_customers, "id", order["customer_id"])
+
+    end = time.perf_counter()
+
+    search_time = end - start
+
+    print(f"Search-only time: {search_time:.4f} seconds")
+
+
+
+start = time.perf_counter()
+
+join_all_sorted(orders, customers)
+
+end = time.perf_counter()
+
+total_time = end - start
+print(f"Total time: {total_time:.4f} seconds")
