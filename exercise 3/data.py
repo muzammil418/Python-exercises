@@ -50,8 +50,8 @@ def make_orders(m, num_customers):
         orders.append(order)
 
 
-make_customers(100)
-make_orders(500, 100)
+make_customers(0000)
+make_orders(250000, 50000)
 
 # solution to 0b
 customer_ids = [customer["id"] for customer in customers]
@@ -267,3 +267,38 @@ end = time.perf_counter()
 
 total_time = end - start
 print(f"Total time: {total_time:.4f} seconds")
+
+#solution to 5a
+def build_customer_index(customers):
+    my_dict = {}
+
+    for customer in customers:
+        my_dict[customer["id"]] = customer
+
+    return my_dict
+
+
+#solution to 5b
+def join_all_dict(orders, customers):
+    customer_index = build_customer_index(customers)
+
+    for order in orders:
+        customer = customer_index.get(order["customer_id"])
+
+
+start = time.perf_counter()
+
+join_all_dict(orders, customers)
+
+end = time.perf_counter()
+
+total_time = end - start
+print(f"Total time: {total_time:.4f} seconds")
+
+
+
+
+
+
+
+
